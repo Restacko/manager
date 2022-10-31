@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.inventorymanager.manager.entity.Item;
 import com.inventorymanager.manager.entity.ItemEntity;
 import com.inventorymanager.manager.entity.Location;
+import com.inventorymanager.manager.entity.dto.ItemEntityDto;
 import com.inventorymanager.manager.repository.ItemEntityRepository;
 import com.inventorymanager.manager.repository.ItemRepository;
 import com.inventorymanager.manager.repository.LocationRepository;
@@ -33,7 +34,7 @@ public class ManagerService {
         return itemRepository.findById(id);
     }
     public Item addItem(Item item){
-        item.setItemEntities(null);
+        item.setEntities(null);
         return itemRepository.save(item);
     }
 
@@ -50,6 +51,11 @@ public class ManagerService {
         itemEntity.setLocation(location);
         return itemEntityRepository.save(itemEntity);
     }
+    public ItemEntity addItemEntity(ItemEntityDto itemEntity){
+        Item item = itemRepository.findById(itemEntity.getItemId()).orElseThrow();
+        Location location = locationRepository.findById(itemEntity.getLocationId()).orElseThrow();
+        return itemEntityRepository.save(new ItemEntity(itemEntity.getId(), itemEntity.getQuantity(), item, location));
+    }
 
     public List<Location> getLocations(){
         return locationRepository.findAll();
@@ -58,7 +64,7 @@ public class ManagerService {
         return locationRepository.findById(id);
     }
     public Location addLocation(Location location){
-        location.setItemEntities(null);
+        location.setEntities(null);
         return locationRepository.save(location);
     }
 

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <title>Item List</title>
+<body>
+    <div>
+        <h2>Item List</h2>
+        <form th:action="@{/Init}" method="POST">
+            <input type="submit" value="Populate with test data">
+        </form>
+        <table>
+            <thead>
+                <th>Id</th>
+                <th>Item name</th>
+                <th>Price</th>
+                <th>Unit</th>
+            </thead>
+            <tbody>
+                <tr th:each="item : ${items}">
+                    <td th:text="${item.id}"></td>
+                    <td th:text="${item.name}"></td>
+                    <td th:text="${item.price}"></td>
+                    <td th:text="${item.unit}"></td>
+                    <td>
+                        <table>      
+                            <tbody>
+                                <tr th:each="entity : ${item.entities}">
+                                    <td th:text="${entity.quantity}"></td>
+                                    <td th:text="${entity.location.rack}"></td>
+                                    <td th:text="${entity.location.shelf}"></td>
+                                    <td th:text="${entity.location.bin}"></td>
+                                </tr>
+                            </tbody>
+                            <!--<thead>
+                                <th>Quantity</th>
+                                <th>Rack</th>
+                                <th>Shelf</th>
+                                <th>Bin</th>
+                            </thead>-->
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <form th:action="@{/add_item}">
+            <input type="submit" value="Add Item">
+        </form>
+        <form th:action="@{/add_location}">
+            <input type="submit" value="Add Location">
+        </form>
+        <form th:action="@{/add_item_entity}">
+            <input type="submit" value="Add item entity">
+        </form>
+    </div>
+</body>
+</html>

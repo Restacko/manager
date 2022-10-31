@@ -2,35 +2,71 @@ package com.inventorymanager.manager.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inventorymanager.manager.entity.Item;
 import com.inventorymanager.manager.entity.ItemEntity;
 import com.inventorymanager.manager.entity.Location;
+import com.inventorymanager.manager.entity.dto.ItemEntityDto;
 import com.inventorymanager.manager.service.InitService;
 import com.inventorymanager.manager.service.ManagerService;
 
 import lombok.RequiredArgsConstructor;
 
-@RestController
+
+@Controller
 @RequiredArgsConstructor
 public class ManagerController {
 
     private final ManagerService managerService;
     private final InitService initService;
 
-    @GetMapping("/")
-    public String hello() {
-        return managerService.hello();
+
+    @ModelAttribute("items")
+    public List<Item> popuItems(){
+        return managerService.getItems();
+    }
+    @ModelAttribute("entities")
+    public List<ItemEntity> popuItemEntities(){
+        return managerService.getItemEntities();
+    }
+    @ModelAttribute("locations")
+    public List<Location> popuLocations(){
+        return managerService.getLocations();
+    }
+    @RequestMapping("/add_item")
+    public String openAddItemPage(Model model){
+        model.addAttribute("item", new Item());
+        return "add_item";
+    }
+    @RequestMapping("/add_location")
+    public String openAddLocationPage(Model model){
+        model.addAttribute("location", new Location());
+        return "add_location";
+    }
+    @RequestMapping("/add_item_entity")
+    public String openAddItemEntityPage(Model model){
+        model.addAttribute("item_entity", new ItemEntityDto());
+        return "add_item_entity";
     }
 
-    @GetMapping("/Init")
-    public void init(){
+    @GetMapping("/")
+    public String hello() {
+        return "item_list";
+    }
+
+    @PostMapping("/Init")
+    public String init(){
         initService.populateDb();
+        return "redirect:/";
     }
 
     @GetMapping("/items")
@@ -42,8 +78,9 @@ public class ManagerController {
         return managerService.getItemById(id);
     }
     @PostMapping("/item")
-    public Item addItem(@RequestBody Item item){
-        return managerService.addItem(item);
+    public String addItem(Item item){
+        managerService.addItem(item);
+        return "redirect:/";
     }
 
     @GetMapping("/item_entities")
@@ -55,8 +92,10 @@ public class ManagerController {
         return managerService.getItemEntityById(id);
     }
     @PostMapping("/item_entity")
-    public ItemEntity addItemEntity(@RequestBody ItemEntity itemEntity){
-        return managerService.addItemEntity(itemEntity);
+    public String addItemEntityDto(ItemEntityDto itemEntityDto){
+        System.out.print("\n\n itemId= " + itemEntityDto.getItemId() +" locationId= " + itemEntityDto.getLocationId() + "\n\n");
+        managerService.addItemEntity(itemEntityDto);
+        return "redirect:/";
     }
 
     @GetMapping("/locations")
@@ -68,8 +107,9 @@ public class ManagerController {
         return managerService.getLocationById(id);
     }
     @PostMapping("/location")
-    public Location addLocation(@RequestBody Location location){
-        return managerService.addLocation(location);
+    public String addLocation(Location location){
+        managerService.addLocation(location);
+        return "redirect:/";
     }
 
 

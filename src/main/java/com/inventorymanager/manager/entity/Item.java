@@ -29,10 +29,15 @@ public class Item {
     String name;
     long groupId;
     Double price;
-    String Unit;
+    String unit;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "item", fetch = FetchType.LAZY)
     //@JsonBackReference
     //@JoinColumn(name="itemId")
-    List<ItemEntity> itemEntities;
+    List<ItemEntity> entities;
+
+    @Override
+    public String toString(){
+        return "Item [id=" + this.id +", name=" + this.name + ", groupId=" + this.groupId + ", price=" + this.price + ", unit="+this.unit + ", entities=" + this.entities + "]";
+    }
 }

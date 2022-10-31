@@ -32,6 +32,6 @@ public class Location {
     short bin;
     
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "location", fetch = FetchType.LAZY)
-    List<ItemEntity> itemEntities;
+    List<ItemEntity> entities;
     
 }

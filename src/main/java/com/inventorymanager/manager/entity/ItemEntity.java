@@ -37,4 +37,9 @@ public class ItemEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="locationId")
     Location location;
+
+    @Override
+    public String toString(){
+        return "ItemEntity [id=" + this.id + ", quantity=" + this.quantity + "]";
+    }
 }
