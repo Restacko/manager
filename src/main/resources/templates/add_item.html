@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
+        <meta charset="UTF-8">
         <title>Add Item</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}" media="all"/>
     </head>
     <body>
-        <h2>Add Item</h2>
-        <div>
-            <form th:action="@{/item}" th:object="${item}" method="POST">
-                <div>
+        <div class="form_contatiner">
+            <h2>Add Item</h2>
+            <div>
+                <form th:action="@{/item}" th:object="${item}" method="POST">
                     <div>
-                        <label>Item Name</label>
-                        <input type="text" th:field="${item.name}"  id="name"  placeholder="Item name">
+                        <div>
+                            <label>Item Name</label>
+                            <input type="text" th:field="${item.name}"  id="name"  placeholder="Item name">
+                        </div>
+                        <div>
+                            <label>Price</label>
+                            <input type="text" th:field="${item.price}"  id="price"  placeholder="0.0">
+                        </div>
+                        <div>
+                            <label>Unit</label>
+                            <input type="text" th:field="${item.unit}" id="unit" placeholder="qty">
+                        </div>
+                        <div>
+                            <input class="button_submit" type="submit" value=" Submit ">
+                        </div>
+                        <input type="hidden" th:field="*{id}">
+                        <input type="hidden" th:field="*{groupId}">
                     </div>
-                    <div>
-                        <label>Price</label>
-                        <input type="text" th:field="${item.price}"  id="price"  placeholder="0.0">
-                    </div>
-                    <div>
-                        <label>Unit</label>
-                        <input type="text" th:field="${item.unit}" id="unit" placeholder="qty">
-                    </div>
-                    <div>
-                        <input type="submit" value=" Submit ">
-                    </div>
-                    <input type="hidden" th:field="*{id}">
-                    <input type="hidden" th:field="*{groupId}">
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </body>
 </html>

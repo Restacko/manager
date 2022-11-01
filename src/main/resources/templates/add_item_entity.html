@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
+        <meta charset="UTF-8">
         <title>Add item entity</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}" media="all"/>
     </head>
     <body>
-        <h2>Add item enttit</h2>
-        <div>
-            <form th:action="@{/item_entity}" th:object="${item_entity}" method="POST">
-                <div>
+        <div class="form_contatiner">
+            <h2>Add item enttit</h2>
+            <div>
+                <form th:action="@{/item_entity}" th:object="${item_entity}" method="POST">
                     <div>
-                        <label>Quantity</label>
-                        <input type="text" th:field="${item_entity.quantity}"  id="name"  placeholder="Item name">
+                        <div>
+                            <label>Quantity</label>
+                            <input type="text" th:field="${item_entity.quantity}"  id="name"  placeholder="Item name">
+                        </div>
+                        <div>
+                            <label>Item</label>
+                            <select th:field="${item_entity.itemId}">
+                                <option th:each="item : ${items}" th:text="${item.name}" th:value="${item.id}"></option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Location</label>
+                            <select th:field="${item_entity.locationId}">
+                                <option th:each="location : ${locations}" th:text="${location.id}" th:value="${location.id}"></option>
+                            </select>
+                        </div>
+                        <div>
+                            <input class="button_submit" type="submit" value=" Submit ">
+                        </div>
+                        <input type="hidden" th:field="*{id}">
                     </div>
-                    <label>Item</label>
-                    <select th:field="${item_entity.itemId}">
-                        <option th:each="item : ${items}" th:text="${item.name}" th:value="${item.id}"></option>
-                    </select>
-                    <label>Location</label>
-                    <select th:field="${item_entity.locationId}">
-                        <option th:each="location : ${locations}" th:text="${location.id}" th:value="${location.id}"></option>
-                    </select>
-                    <div>
-                        <input type="submit" value=" Submit ">
-                    </div>
-                    <input type="hidden" th:field="*{id}">
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </body>
 </html>

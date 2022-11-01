@@ -1,31 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
+        <meta charset="UTF-8">
         <title>Add location</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}" media="all"/>
     </head>
     <body>
-        <h2>Add location</h2>
-        <div>
-            <form th:action="@{/location}" th:object="${location}" method="POST">
-                <div>
+        <div class="form_contatiner">
+            <h2>Add location</h2>
+            <div>
+                <form th:action="@{/location}" th:object="${location}" method="POST">
                     <div>
-                        <label>Rack</label>
-                        <input type="text" th:field="${location.rack}"  placeholder="Rack">
+                        <div>
+                            <label>Rack</label>
+                            <input type="text" th:field="${location.rack}"  placeholder="Rack">
+                        </div>
+                        <div>
+                            <label>Shelf</label>
+                            <input type="text" th:field="${location.shelf}" placeholder="1">
+                        </div>
+                        <div>
+                            <label>Bin</label>
+                            <input type="text" th:field="${location.bin}" placeholder="1">
+                        </div>
+                        <div>
+                            <input class="button_submit" type="submit" value=" Submit ">
+                        </div>
+                        <input type="hidden" id="id" th:field="*{id}">
                     </div>
-                    <div>
-                        <label>Shelf</label>
-                        <input type="text" th:field="${location.shelf}" placeholder="1">
-                    </div>
-                    <div>
-                        <label>Bin</label>
-                        <input type="text" th:field="${location.bin}" placeholder="1">
-                    </div>
-                    <div>
-                        <input type="submit" value=" Submit ">
-                    </div>
-                    <input type="hidden" id="id" th:field="*{id}">
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        </div>        
     </body>
 </html>

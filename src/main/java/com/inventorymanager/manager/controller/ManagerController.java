@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.inventorymanager.manager.entity.Item;
 import com.inventorymanager.manager.entity.ItemEntity;
@@ -29,6 +26,10 @@ public class ManagerController {
     private final ManagerService managerService;
     private final InitService initService;
 
+    @GetMapping("/")
+    public String hello() {
+        return "item_list";
+    }
 
     @ModelAttribute("items")
     public List<Item> popuItems(){
@@ -42,26 +43,23 @@ public class ManagerController {
     public List<Location> popuLocations(){
         return managerService.getLocations();
     }
-    @RequestMapping("/add_item")
+    @GetMapping("/add_item")
     public String openAddItemPage(Model model){
         model.addAttribute("item", new Item());
         return "add_item";
     }
-    @RequestMapping("/add_location")
+    @GetMapping("/add_location")
     public String openAddLocationPage(Model model){
         model.addAttribute("location", new Location());
         return "add_location";
     }
-    @RequestMapping("/add_item_entity")
+    @GetMapping("/add_item_entity")
     public String openAddItemEntityPage(Model model){
         model.addAttribute("item_entity", new ItemEntityDto());
         return "add_item_entity";
     }
 
-    @GetMapping("/")
-    public String hello() {
-        return "item_list";
-    }
+    
 
     @PostMapping("/Init")
     public String init(){
