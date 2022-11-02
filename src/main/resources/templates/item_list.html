@@ -7,14 +7,15 @@
     </head>
 <body>
     <div>
-        <div>
-            <h2 class="form_inline">Item List</h2>
+        <div class="phead">
+            <h2 class="form_inline">Inventory manager</h2>
             <form class="form_inline" th:action="@{/Init}" method="POST">
                 <input class="button2" type="submit" value="Populate with test data">
             </form>
         </div>
         <div class="tb">
             <div class="table_container">
+                <h2>Inventory list</h2>
                 <table>
                     <thead>
                         <th>Id</th>
